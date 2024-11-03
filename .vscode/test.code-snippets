@@ -1,0 +1,9 @@
+{
+  "test": {
+    "scope": "",
+    "prefix": "test",
+    "body": [
+      "print('just testing how this')"
+    ]
+  }
+}

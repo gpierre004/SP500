@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&P 500 Stock Analysis Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial/dist/chartjs-chart-financial.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>S&P 500 Stock Analysis Dashboard</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="user-transactions.html">User & Transactions</a>
+        </nav>
+    </header>
+    <main>
+        <div class="dashboard-controls">
+            <input type="text" id="tickerInput" placeholder="Enter stock ticker" value="AAPL">
+            <button id="searchButton">Search</button>
+            <div class="time-range-selector">
+                <button class="time-range-btn" data-range="1d">1D</button>
+                <button class="time-range-btn" data-range="1w">1W</button>
+                <button class="time-range-btn" data-range="1m">1M</button>
+                <button class="time-range-btn" data-range="1y">1Y</button>
+                <button class="time-range-btn" data-range="3y">3Y</button>
+            </div>
+        </div>
+        <div class="dashboard-grid">
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="price-performance-container">
+                <h3>Price Performance</h3>
+                <table id="pricePerformanceTable">
+                    <tr>
+                        <th>Period</th>
+                        <th>Performance</th>
+                    </tr>
+                    <!-- Table rows will be populated dynamically -->
+                </table>
+            </div>
+            <div class="chart-container">
+                <canvas id="priceTrendChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="bollingerBandsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="volumeAnalysisChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="rsiChart"></canvas>
+            </div>
+        </div>
+    </main>
+    <script src="dashboard.js"></script>
+</body>
+</html>
