@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration and Transaction Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>User Registration and Transaction Management</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="user-transactions.html">User & Transactions</a>
+        </nav>
+    </header>
+    <main class="user-transactions-container">
+        <section id="transactionManagement" class="user-transactions-card">
+            <h2>Transaction Management</h2>
+            <form id="transactionForm" class="transaction-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="portfolioId">Portfolio ID:</label>
+                        <select id="portfolioId" name="portfolioId" required>
+                            <option value="">Select a Portfolio ID</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="purchaseDate">Purchase Date:</label>
+                        <input type="date" id="purchaseDate" name="purchaseDate" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ticker">Ticker:</label>
+                        <input type="text" id="ticker" name="ticker" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" required min="1">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="purchasePrice">Purchase Price:</label>
+                        <input type="number" id="purchasePrice" name="purchasePrice" required step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <select id="type" name="type" required>
+                            <option value="buy">Buy</option>
+                            <option value="sell">Sell</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="comment">Comment:</label>
+                    <textarea id="comment" name="comment"></textarea>
+                </div>
+                <button type="submit" class="submit-button">Add Transaction</button>
+            </form>
+        </section>
+
+        <section id="userRegistration" class="user-transactions-card">
+            <h2>User Registration</h2>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit">Register User</button>
+            </form>
+        </section>
+    </main>
+    <div id="message"></div>
+    <script src="user-transactions.js"></script>
+</body>
+</html>

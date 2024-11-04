@@ -1,0 +1,635 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+nav {
+    margin-top: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #444;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+main {
+    padding: 0.7rem;
+}
+
+/* Button styles */
+button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+}
+
+/* Dashboard controls */
+.dashboard-controls {
+    margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#tickerInput {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 200px;
+    margin-right: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.time-range-selector {
+    margin-left: 1rem;
+}
+
+.time-range-btn {
+    background-color: #008CBA;
+}
+
+.time-range-btn:hover {
+    background-color: #007399;
+}
+
+/* Dashboard grid */
+/* Add this to your existing styles.css file */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.price-performance-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.price-performance-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+#pricePerformanceTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#pricePerformanceTable th,
+#pricePerformanceTable td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#pricePerformanceTable th {
+    font-weight: bold;
+    color: #555;
+}
+
+#pricePerformanceTable td.positive {
+    color: #28a745;
+}
+
+#pricePerformanceTable td.negative {
+    color: #dc3545;
+}
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.chart-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 400px;
+}
+
+/* Responsive layout */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Watch list styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Watch list filter styles */
+#watchListFilters {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+#watchListFilters input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+}
+
+#resetFiltersButton {
+    background-color: #f44336;
+}
+
+#resetFiltersButton:hover {
+    background-color: #d32f2f;
+}
+
+#applyFiltersButton {
+    background-color: #2196F3;
+}
+
+#applyFiltersButton:hover {
+    background-color: #1976D2;
+}
+
+/* Chart styles */
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Cards styles */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+
+.card .percent-below {
+    font-size: 1.2em;
+    color: #f44336;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+}
+
+.card-header {
+    background-color: #f5f5f5;
+    padding: 10px;
+    text-align: center;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body p {
+    margin: 10px 0;
+}
+
+.price-change {
+    font-weight: bold;
+}
+
+.price-change.positive {
+    color: green;
+}
+
+.price-change.negative {
+    color: red;
+}
+.percent-below {
+    color: #e76f51;
+}
+
+.date-added {
+    color: #264653;
+}
+/* Styles specific to user-transactions page */
+.user-transactions-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .user-transactions-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1;
+  }
+  
+  .user-transactions-container #transactionManagement {
+    flex: 2;
+  }
+  
+  .user-transactions-container #userRegistration {
+    flex: 1;
+  }
+  
+  .user-transactions-card .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .user-transactions-card .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .user-transactions-card .form-group input,
+  .user-transactions-card .form-group select,
+  .user-transactions-card .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .user-transactions-card button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .user-transactions-card button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  .user-transactions-container #message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .user-transactions-container #message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .user-transactions-container #message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .user-transactions-card h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .user-transactions-container {
+      flex-direction: column;
+    }
+  
+    .user-transactions-container #transactionManagement,
+    .user-transactions-container #userRegistration {
+      flex: 1;
+    }
+  }
+
+/* Add these styles to your existing CSS file */
+
+.price-change {
+    font-weight: bold;
+}
+
+.price-change.positive {
+    color: green;
+}
+
+.price-change.negative {
+    color: red;
+}
+
+/* New styles for the transaction form */
+.transaction-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 0 0 48%;
+}
+
+.form-group.full-width {
+    flex: 0 0 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #1a5f7a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #134b61;
+}
+h2{
+    text-align: center;
+}
+
+/* Add these styles to your existing CSS file */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.login-card {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form .form-group {
+    margin-bottom: 15px;
+}
+
+.login-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-form .submit-button {
+    margin-top: 10px;
+}
+
+.login-card p {
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Add these to your styles.css file */
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff3f3;
+    border: 1px solid #ffcdd2;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+#message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+#message.info {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+#message.error {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+#message.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.loading:after {
+    content: '...';
+    animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60% { content: '...'; }
+    80% { content: '....'; }
+    100% { content: '.....'; }
+}
+
+/* Add these styles to your existing CSS */
+.upload-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.template-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #1a5f7a;
+    text-decoration: none;
+}
+
+.template-link:hover {
+    text-decoration: underline;
+}
+
+#transactionFile {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}

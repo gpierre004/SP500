@@ -34,6 +34,8 @@ WatchList.belongsTo(Company);
 User.hasMany(WatchList);
 WatchList.belongsTo(User);
 
+Transaction.belongsTo(Company, { foreignKey: 'ticker', targetKey: 'ticker' });
+
 export {
   sequelize,
   Company,

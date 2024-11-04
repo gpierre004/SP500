@@ -558,3 +558,92 @@ h2{
     margin-top: 15px;
     text-align: center;
 }
+
+/* Add these to your styles.css file */
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff3f3;
+    border: 1px solid #ffcdd2;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+#message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+#message.info {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+#message.error {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+#message.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.loading:after {
+    content: '...';
+    animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60% { content: '...'; }
+    80% { content: '....'; }
+    100% { content: '.....'; }
+}
+
+/* Add these styles to your existing CSS */
+.upload-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.template-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #1a5f7a;
+    text-decoration: none;
+}
+
+.template-link:hover {
+    text-decoration: underline;
+}
+
+#transactionFile {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+.template-link {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.template-link:hover {
+    background-color: #45a049;
+}

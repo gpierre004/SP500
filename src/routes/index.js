@@ -1,5 +1,6 @@
 import express from 'express';
 import companyRoutes from './companyRoutes.js';
+import portfolioRoutes from './portfolioRoutes.js';
 import stockPriceRoutes from './stockPriceRoutes.js';
 import watchListRoutes from './watchListRoutes.js';
 import userRoutes from './userRoutes.js';
@@ -13,6 +14,7 @@ const router = express.Router();
 // Mount the routes
 router.use('/stock-prices', stockPriceRoutes);
 router.use('/companies', companyRoutes);
+router.use('/portfolio', portfolioRoutes);
 router.use('/watch-list', watchListRoutes);
 router.use('/users', userRoutes);
 router.use('/analysis', analysisRoutes);

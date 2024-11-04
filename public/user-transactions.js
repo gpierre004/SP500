@@ -103,3 +103,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+const uploadForm = document.getElementById('uploadForm');
+
+uploadForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(uploadForm);
+
+    try {
+        const response = await fetch('/api/transactions/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Upload failed');
+        }
+
+        const result = await response.json();
+        showMessage(result.message, 'success');
+        uploadForm.reset();
+    } catch (error) {
+        showMessage(`Error: ${error.message}`, 'error');
+    }
+});
