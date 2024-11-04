@@ -28,6 +28,7 @@ export default (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: true
     },
+    metrics: DataTypes.JSONB,
     priceChange: {
       type: DataTypes.FLOAT,
       allowNull: true

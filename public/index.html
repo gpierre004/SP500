@@ -230,14 +230,26 @@
                 }
             });
 
-            // Update Watch List button
+            // Update the watchlist button handler
             document.getElementById('updateWatchList').addEventListener('click', async () => {
-                console.log('Update Watch List button clicked');
                 try {
-                    const result = await makeRequest('/api/watch-list/update', 'POST');
-                    alert('Watch list updated successfully');
+                    console.log('Update Watch List button clicked');
+                    const response = await fetch('/api/watch-list/update', {  // Remove the double 'api'
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
                     console.log('Update result:', result);
+                    alert('Watch list updated successfully');
                 } catch (error) {
+                    console.error('Error updating watch list:', error);
                     alert('Error updating watch list');
                 }
             });

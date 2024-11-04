@@ -131,66 +131,40 @@ export async function updateStockPrices(ticker, stockData) {
 export async function updateAllStockPrices() {
   const client = await pool.connect();
   try {
-    const tickers = await getTickers();
-    const endDate = new Date();
-    const startDate = new Date();
-    startDate.setFullYear(startDate.getFullYear() - 3);
+      const tickers = await getTickers();
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setFullYear(startDate.getFullYear() - 3);
 
-    let updatedCount = 0;
-    let errorCount = 0;
+      let updatedCount = 0;
+      let errorCount = 0;
 
-    for (const ticker of tickers) {
-      logger.info(`Processing ${ticker}...`);
-      try {
-        const queryOptions = {
-          period1: startDate,
-          period2: endDate,
-          interval: '1d'
-        };
-
-        const stockData = await yahooFinance.historical(ticker, queryOptions);
-        
-        if (stockData && stockData.length > 0) {
-          // Process each day's data
-          for (const data of stockData) {
-            await StockPrice.upsert({
-              CompanyTicker: ticker,
-              date: data.date,
-              open: data.open,
-              high: data.high,
-              low: data.low,
-              close: data.close,
-              volume: data.volume,
-              adjustedClose: data.adjClose
-            });
+      for (const ticker of tickers) {
+          logger.info(`Processing ${ticker}...`);
+          try {
+              const stockData = await getStockData(ticker, startDate, endDate);
+              if (stockData && stockData.length > 0) {
+                  await updateStockPrices(ticker, stockData);
+                  logger.info(`Updated stock prices for ${ticker}`);
+                  updatedCount++;
+              } else {
+                  logger.info(`No data available for ${ticker}`);
+              }
+          } catch (error) {
+              logger.error(`Error processing ${ticker}:`, error);
+              errorCount++;
           }
-          logger.info(`Updated stock prices for ${ticker}`);
-          updatedCount++;
-        } else {
-          logger.info(`No data available for ${ticker}`);
-        }
-      } catch (error) {
-        logger.error(`Error processing ${ticker}:`, error);
-        errorCount++;
       }
-    }
 
-    return {
-      message: `Stock prices update completed`,
-      details: {
-        updated: updatedCount,
-        errors: errorCount,
-        total: tickers.length
-      }
-    };
-  } catch (error) {
-    logger.error('Error updating stock prices:', error);
-    throw error;
+      return {
+          updatedCount,
+          errorCount,
+          totalProcessed: tickers.length
+      };
   } finally {
-    client.release();
+      client.release();
   }
 }
-
 export async function checkInvalidTickers() {
   try {
     const companies = await Company.findAll();
