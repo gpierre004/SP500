@@ -1,6 +1,23 @@
+// src/services/stockPriceService.js
 import { StockPrice } from '../models/index.js';
 import logger from '../utils/logger.js';
 import { updateAllStockPrices } from './dataUpdate.js';
+
+export async function startStockPriceUpdate() {
+  try {
+      logger.info('Starting stock price update');
+      const result = await updateAllStockPrices();
+      logger.info('Stock price update completed successfully');
+      return { 
+          success: true, 
+          message: 'Stock price update completed successfully',
+          details: result 
+      };
+  } catch (error) {
+      logger.error('Error in stock price update:', error);
+      throw error;
+  }
+}
 
 export async function getStockPrices(ticker, limit = 30) {
   try {
@@ -12,19 +29,6 @@ export async function getStockPrices(ticker, limit = 30) {
   } catch (error) {
     logger.error('Error fetching stock prices:', error);
     throw new Error('Unable to fetch stock prices');
-  }
-}
-
-export async function startStockPriceUpdate() {
-  try {
-    // Perform the update asynchronously
-    updateAllStockPrices().catch(error => {
-      logger.error('Error updating all stock prices:', error);
-    });
-    return { message: 'Stock price update started' };
-  } catch (error) {
-    logger.error('Error starting stock price update:', error);
-    throw new Error('Unable to start stock price update');
   }
 }
 

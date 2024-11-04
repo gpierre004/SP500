@@ -25,6 +25,14 @@ app.use('/api', routes);
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Serve static files
+app.use(express.static('public'));
+
+// Serve the main HTML file for all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
 // Use the error handling middleware
 app.use(errorHandler);
 

@@ -19,13 +19,14 @@
     <main>
         <div class="existing-controls">
             <button id="refreshButton">Refresh S&P 500 List</button>
-            <button id="updateButton">Update Stock Prices</button>
-            <button id="updateAllButton">Update All Stock Prices</button>
+            <button id="updateStockPrices">Update Stock Prices</button>
+            <button id="updateWatchList">Update Watch List</button>
+            <button id="refreshCompanyList">Refresh Company List</button>
+            <button id="cleanupWatchList">Clean Up Watch List</button>
             <button id="updateWatchListButton">Update Watch List</button>
             <button id="getWatchListButton">Refresh Watch List</button>
             <button id="resetFiltersButton">Reset Filters</button>
             <button id="applyFiltersButton">Apply Filters</button>
-            <button id="updatePricesButton">Update Prices</button>
         </div>
         <div id="message"></div>
         <div id="watchListContainer">
@@ -197,33 +198,27 @@
                 if (result) showMessage(result.message);
             });
 
-            document.getElementById('updateButton').addEventListener('click', async () => {
-                const result = await makeRequest('/api/stock-prices/update', 'POST');
-                if (result) showMessage(result.message);
-            });
-
-            document.getElementById('updatePricesButton').addEventListener('click', async () => {
-                const result = await makeRequest('/update-stock-prices', 'POST');
-                if (result) showMessage(result.message);
-            });
-
-            document.getElementById('updateAllButton').addEventListener('click', async () => {
+            // Update Stock Prices button
+            document.getElementById('updateStockPrices').addEventListener('click', async () => {
                 try {
-                    console.log('Update All Stock Prices button clicked');
-                    const response = await fetch('/api/stock-prices/update', { 
+                    console.log('Update Stock Prices button clicked');
+                    const response = await fetch('/api/stock-prices/update', {  // Remove the double 'api'
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            'Content-Type': 'application/json'
                         }
                     });
-                    console.log('Response status:', response.status);
-                    const data = await response.json();
-                    console.log('Response data:', data);
-                    alert(data.message || 'Stock price update initiated');
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    console.log('Update result:', result);
+                    alert('Stock price update started successfully');
                 } catch (error) {
                     console.error('Error updating stock prices:', error);
-                    alert('Failed to update stock prices. Please check the console for more details.');
+                    alert('Error updating stock prices');
                 }
             });
 
@@ -232,6 +227,30 @@
                 if (result) {
                     showMessage(result.message);
                     getWatchList();
+                }
+            });
+
+            // Update Watch List button
+            document.getElementById('updateWatchList').addEventListener('click', async () => {
+                console.log('Update Watch List button clicked');
+                try {
+                    const result = await makeRequest('/api/watch-list/update', 'POST');
+                    alert('Watch list updated successfully');
+                    console.log('Update result:', result);
+                } catch (error) {
+                    alert('Error updating watch list');
+                }
+            });
+
+            // Clean Up Watch List button
+            document.getElementById('cleanupWatchList').addEventListener('click', async () => {
+                console.log('Clean Up Watch List button clicked');
+                try {
+                    const result = await makeRequest('/api/watch-list/cleanup', 'POST');
+                    alert('Watch list cleaned up successfully');
+                    console.log('Cleanup result:', result);
+                } catch (error) {
+                    alert('Error cleaning up watch list');
                 }
             });
 
@@ -244,6 +263,18 @@
 
             checkAuthentication();
         });
+
+        // Refresh Company List button
+        document.getElementById('refreshCompanyList').addEventListener('click', async () => {
+                console.log('Refresh Company List button clicked');
+                try {
+                    const result = await makeRequest('/api/companies/refresh', 'POST');
+                    alert('Company list refreshed successfully');
+                    console.log('Refresh result:', result);
+                } catch (error) {
+                    alert('Error refreshing company list');
+                }
+            });
 
         function checkAuthentication() {
             const token = localStorage.getItem('token');

@@ -10,8 +10,9 @@ import { authenticateJWT } from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.use('/companies', companyRoutes);
+// Mount the routes
 router.use('/stock-prices', stockPriceRoutes);
+router.use('/companies', companyRoutes);
 router.use('/watch-list', watchListRoutes);
 router.use('/users', userRoutes);
 router.use('/analysis', analysisRoutes);

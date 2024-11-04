@@ -109,37 +109,21 @@ async function getStockData(ticker, startDate, endDate) {
 
 export async function updateStockPrices(ticker, stockData) {
   try {
-    // Update existing entry or create new one
-    const existingEntry = await StockPrice.findOne({
-      where: {
+    for (const data of stockData) {
+      await StockPrice.upsert({
         CompanyTicker: ticker,
-        date: stockData[0].date
-      }
-    });
-
-    if (existingEntry) {
-      await existingEntry.update({
-        open: stockData[0].open,
-        high: stockData[0].high,
-        low: stockData[0].low,
-        close: stockData[0].close,
-        volume: stockData[0].volume,
-        adjustedClose: stockData[0].adjustedClose
-      });
-    } else {
-      await StockPrice.create({
-        CompanyTicker: ticker,
-        date: stockData[0].date,
-        open: stockData[0].open,
-        high: stockData[0].high,
-        low: stockData[0].low,
-        close: stockData[0].close,
-        volume: stockData[0].volume,
-        adjustedClose: stockData[0].adjustedClose
+        date: data.date,
+        open: data.open,
+        high: data.high,
+        low: data.low,
+        close: data.close,
+        volume: data.volume,
+        adjustedClose: data.adjClose
       });
     }
+    logger.info(`Updated stock prices for ${ticker}`);
   } catch (error) {
-    logger.error(`Error updating stock price for ${ticker}:`, error);
+    logger.error(`Error updating stock prices for ${ticker}:`, error);
     throw error;
   }
 }
@@ -158,9 +142,28 @@ export async function updateAllStockPrices() {
     for (const ticker of tickers) {
       logger.info(`Processing ${ticker}...`);
       try {
-        const stockData = await getStockData(ticker, startDate, endDate);
+        const queryOptions = {
+          period1: startDate,
+          period2: endDate,
+          interval: '1d'
+        };
+
+        const stockData = await yahooFinance.historical(ticker, queryOptions);
+        
         if (stockData && stockData.length > 0) {
-          await updateStockPrices(ticker, stockData);
+          // Process each day's data
+          for (const data of stockData) {
+            await StockPrice.upsert({
+              CompanyTicker: ticker,
+              date: data.date,
+              open: data.open,
+              high: data.high,
+              low: data.low,
+              close: data.close,
+              volume: data.volume,
+              adjustedClose: data.adjClose
+            });
+          }
           logger.info(`Updated stock prices for ${ticker}`);
           updatedCount++;
         } else {
@@ -172,17 +175,21 @@ export async function updateAllStockPrices() {
       }
     }
 
-    const completionMessage = `All stock prices update completed. Updated: ${updatedCount}, Errors: ${errorCount}`;
-    logger.info(completionMessage);
-    return { message: completionMessage };
+    return {
+      message: `Stock prices update completed`,
+      details: {
+        updated: updatedCount,
+        errors: errorCount,
+        total: tickers.length
+      }
+    };
   } catch (error) {
-    logger.error('An error occurred while updating all stock prices:', error);
+    logger.error('Error updating stock prices:', error);
     throw error;
   } finally {
     client.release();
   }
 }
-
 
 export async function checkInvalidTickers() {
   try {

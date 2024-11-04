@@ -76,31 +76,31 @@
 
         // Insert new records or update if they exist
         for (const data of stockData) {
-        await client.query(
-            `INSERT INTO public."StockPrices"(
-            date, open, high, low, close, volume, "adjustedClose", "CompanyTicker", "createdAt", "updatedAt"
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-            ON CONFLICT ("CompanyTicker", date) DO UPDATE SET
-            open = EXCLUDED.open,
-            high = EXCLUDED.high,
-            low = EXCLUDED.low,
-            close = EXCLUDED.close,
-            volume = EXCLUDED.volume,
-            "adjustedClose" = EXCLUDED."adjustedClose",
-            "updatedAt" = EXCLUDED."updatedAt"`,
-            [
-            data.date,
-            data.open,
-            data.high,
-            data.low,
-            data.close,
-            data.volume,
-            data.adjClose, // Adjusted close price
-            ticker,
-            new Date(),
-            new Date(),
-            ]
-        );
+            await client.query(
+                `INSERT INTO public."StockPrices"(
+                  date, open, high, low, close, volume, "adjustedClose", "CompanyTicker", "createdAt", "updatedAt"
+                ) VALUES (\$1, \$2, \$3, \$4, \$5, \$6, \$7, \$8, \$9, \$10)
+                ON CONFLICT ("CompanyTicker", date) DO UPDATE SET
+                  open = EXCLUDED.open,
+                  high = EXCLUDED.high,
+                  low = EXCLUDED.low,
+                  close = EXCLUDED.close,
+                  volume = EXCLUDED.volume,
+                  "adjustedClose" = EXCLUDED."adjustedClose",
+                  "updatedAt" = EXCLUDED."updatedAt"`,
+                [
+                  data.date,
+                  data.open,
+                  data.high,
+                  data.low,
+                  data.close,
+                  data.volume,
+                  data.adjClose,
+                  ticker,
+                  new Date(),
+                  new Date(),
+                ]
+              );
         }
 
         await client.query('COMMIT');

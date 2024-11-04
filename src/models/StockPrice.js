@@ -2,6 +2,11 @@ import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
   return sequelize.define('StockPrice', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false
@@ -11,11 +16,20 @@ export default (sequelize) => {
     low: DataTypes.FLOAT,
     close: DataTypes.FLOAT,
     volume: DataTypes.BIGINT,
-    adjustedClose: DataTypes.FLOAT
+    adjustedClose: DataTypes.FLOAT,
+    CompanyTicker: {
+      type: DataTypes.STRING,
+      references: {
+        model: 'Companies',
+        key: 'ticker'
+      }
+    }
   }, {
     indexes: [
-      { fields: ['date'] },
-      { fields: ['CompanyTicker', 'date'] }
+      {
+        unique: true,
+        fields: ['CompanyTicker', 'date']
+      }
     ]
   });
 };
