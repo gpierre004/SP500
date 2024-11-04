@@ -114,58 +114,58 @@
         }
 
         function displayWatchList(watchList) {
-            watchListData = watchList;
-            const watchListDiv = document.getElementById('watchList');
-            if (watchList.length === 0) {
-                watchListDiv.innerHTML = '<p>No items in the watch list.</p>';
-                return;
-            }
+    watchListData = watchList;
+    const watchListDiv = document.getElementById('watchList');
+    if (!watchList || watchList.length === 0) {
+        watchListDiv.innerHTML = '<p>No items in the watch list.</p>';
+        return;
+    }
 
-            let displayList = watchList;
-            if (areFiltersActive) {
-                displayList = watchList.filter(item =>
-                    item.CompanyTicker.toLowerCase().includes(filters.ticker) &&
-                    item.Company.name.toLowerCase().includes(filters.company) &&
-                    item.currentPrice >= filters.price &&
-                    item.percentBelow52WeekHigh >= filters.percentBelow
-                );
-            }
+    let displayList = watchList;
+    if (areFiltersActive) {
+        displayList = watchList.filter(item =>
+            item.CompanyTicker?.toLowerCase().includes(filters.ticker || '') &&
+            item.Company?.name?.toLowerCase().includes(filters.company || '') &&
+            (item.currentPrice || 0) >= (filters.price || 0) &&
+            (item.percentBelow52WeekHigh || 0) >= (filters.percentBelow || 0)
+        );
+    }
 
-            if (sortColumn) {
-                displayList.sort((a, b) => {
-                    let valueA = sortColumn === 'Company' ? a.Company.name : a[sortColumn];
-                    let valueB = sortColumn === 'Company' ? b.Company.name : b[sortColumn];
-                    if (typeof valueA === 'string') valueA = valueA.toLowerCase();
-                    if (typeof valueB === 'string') valueB = valueB.toLowerCase();
-                    if (valueA < valueB) return sortDirection === 'asc' ? -1 : 1;
-                    if (valueA > valueB) return sortDirection === 'asc' ? 1 : -1;
-                    return 0;
-                });
-            }
+    if (sortColumn) {
+        displayList.sort((a, b) => {
+            let valueA = sortColumn === 'Company' ? a.Company?.name : a[sortColumn];
+            let valueB = sortColumn === 'Company' ? b.Company?.name : b[sortColumn];
+            valueA = typeof valueA === 'string' ? valueA.toLowerCase() : valueA || 0;
+            valueB = typeof valueB === 'string' ? valueB.toLowerCase() : valueB || 0;
+            if (valueA < valueB) return sortDirection === 'asc' ? -1 : 1;
+            if (valueA > valueB) return sortDirection === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }
 
-            let html = '<div class="card-container">';
-            displayList.forEach(item => {
-                html += `
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>${item.CompanyTicker}</h3>
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Company:</strong> ${item.Company.name}</p>
-                            <p><strong>Sector:</strong> ${item.Company.sector}</p>
-                            <p class="price"><strong>Current Price:</strong> $${item.currentPrice.toFixed(2)}</p>
-                            <p class="price"><strong>Price When Added:</strong> $${item.priceWhenAdded.toFixed(2)}</p>
-                            <p><strong>52 Week High:</strong> $${item.weekHigh52.toFixed(2)}</p>
-                            <p class="percent-below"><strong>% Below High:</strong> ${item.percentBelow52WeekHigh.toFixed(2)}%</p>
-                            <p class="date-added"><strong>Date Added:</strong> ${new Date(item.dateAdded).toLocaleDateString()}</p>
-                            <p class="price-change"><strong>Price Change:</strong> ${item.priceChange.toFixed(2)}%</p>
-                        </div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            watchListDiv.innerHTML = html;
-        }
+    let html = '<div class="card-container">';
+    displayList.forEach(item => {
+        html += `
+            <div class="card">
+                <div class="card-header">
+                    <h3>${item.CompanyTicker || 'N/A'}</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Company:</strong> ${item.Company?.name || 'N/A'}</p>
+                    <p><strong>Sector:</strong> ${item.Company?.sector || 'N/A'}</p>
+                    <p class="price"><strong>Current Price:</strong> ${item.currentPrice ? item.currentPrice.toFixed(2) : 'N/A'}</p>
+                    <p class="price"><strong>Price When Added:</strong> ${item.priceWhenAdded ? item.priceWhenAdded.toFixed(2) : 'N/A'}</p>
+                    <p><strong>52 Week High:</strong> ${item.weekHigh52 ? item.weekHigh52.toFixed(2) : 'N/A'}</p>
+                    <p class="percent-below"><strong>% Below High:</strong> ${item.percentBelow52WeekHigh ? item.percentBelow52WeekHigh.toFixed(2) : 'N/A'}%</p>
+                    <p class="date-added"><strong>Date Added:</strong> ${item.dateAdded ? new Date(item.dateAdded).toLocaleDateString() : 'N/A'}</p>
+                    <p class="price-change"><strong>Price Change:</strong> ${item.priceChange ? item.priceChange.toFixed(2) : '0.00'}%</p>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    watchListDiv.innerHTML = html;
+}
 
         function getSortIndicator(column) {
             if (sortColumn === column) {

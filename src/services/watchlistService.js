@@ -12,7 +12,13 @@ const TREND_PERIOD = 1080; // 1080-day moving average for long-term trend
 
 export async function updateWatchListPriceChange() {
   try {
-    const watchListItems = await WatchList.findAll();
+    const watchListItems = await WatchList.findAll({
+      attributes: [
+        'id', 
+        'currentPrice', 
+        'priceWhenAdded'
+      ]
+    });
 
     for (const item of watchListItems) {
       const priceChange = ((item.currentPrice - item.priceWhenAdded) / item.priceWhenAdded * 100).toFixed(2);
