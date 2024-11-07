@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Performance</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+    <header>
+        <h1>Portfolio Performance</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="user-transactions.html">User & Transactions</a>
+        </nav>
+    </header>
+    <main>
+        <section id="portfolioSummary">
+            <h2>Portfolio Summary</h2>
+            <div id="summaryDetails">
+                <!-- Summary details will be populated here -->
+            </div>
+        </section>
+        <section id="portfolioCharts">
+            <h2>Performance Charts</h2>
+            <div class="chart-container">
+                <canvas id="portfolioValueChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="individualPerformanceChart"></canvas>
+            </div>
+        </section>
+    </main>
+    <script src="portfolio-performance.js"></script>
+</body>
+</html>

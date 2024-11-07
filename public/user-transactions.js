@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userForm = document.getElementById('userForm');
     const transactionForm = document.getElementById('transactionForm');
+    const uploadForm = document.getElementById('uploadForm');
     const messageDiv = document.getElementById('message');
     const portfolioIdSelect = document.getElementById('portfolioId');
 
     userForm.addEventListener('submit', handleUserRegistration);
+    uploadForm.addEventListener('submit', handleUploadSubmission);
     transactionForm.addEventListener('submit', handleTransactionSubmission);
 
     // Fetch and populate portfolio IDs when the page loads
@@ -47,6 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function handUploadSubmission(event) {
+        event.preventDefault();
+        const formData = new FormData(uploadForm);
+        const uploadForm = Object.fromEntries(formData.entries());
+
+    }
     async function handleTransactionSubmission(event) {
         event.preventDefault();
         const formData = new FormData(transactionForm);

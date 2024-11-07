@@ -7,7 +7,7 @@ import userRoutes from './userRoutes.js';
 import analysisRoutes from './analysisRoutes.js';
 import analyticsRoutes from './analyticsRoutes.js';
 import transactionRoutes from './transactionRoutes.js';
-import { authenticateJWT } from '../middleware/auth.js';
+//import { authenticateJWT } from '../middleware/auth.js';
 
 const router = express.Router();
 

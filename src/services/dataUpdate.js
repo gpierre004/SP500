@@ -165,6 +165,7 @@ export async function updateAllStockPrices() {
       client.release();
   }
 }
+
 export async function checkInvalidTickers() {
   try {
     const companies = await Company.findAll();

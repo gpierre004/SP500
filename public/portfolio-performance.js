@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error loading initial data:', error);
         showMessage('Error loading portfolio data. Please try again.', 'error');
-        
+
         // Display a friendly message in the summary section
         summaryDiv.innerHTML = `
             <div class="error-message">
@@ -33,16 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function fetchPortfolioData() {
     try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            throw new Error('No authentication token found');
-        }
-
-        const response = await fetch('/api/portfolio', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        const response = await fetch('/api/portfolio');
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -50,16 +41,12 @@ async function fetchPortfolioData() {
 
         const data = await response.json();
         console.log('Portfolio data:', data);
-        
+
         displayPortfolioSummary(data);
         renderPortfolioValueChart(data);
         renderIndividualPerformanceChart(data);
-    } catch (error) {
-        console.error('Error fetching portfolio data:', error);
-        throw error;
     }
 }
-
 
 function displayPortfolioSummary(data) {
     const summaryDiv = document.getElementById('summaryDetails');
